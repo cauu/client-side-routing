@@ -1,0 +1,71 @@
+<html>
+  <head>
+      <title>Client Side Routing Demo</title>
+    </head>
+    
+    <body>
+      <header>
+        <ul>
+          <li><button id="toHome">Home</button></li>
+          <li><button id="toAbout">About</button></li>
+          <li><button id="toContact">Contact</button></li>
+        </ul>
+      </header>
+      <div data-router-view>
+        <h1>Hello!</h1>
+      </div>
+
+      <script src="./src/router/router.js"></script>
+      <script src="./src/router/browser.js"></script>
+      <script src="./src/router/hash.js"></script>
+      <script src="./src/index.js"></script>
+      <script type="text/javascript">
+        const routerConfig = [
+          {
+            path: '/',
+            name: 'HOME',
+            template: '<div><h1>Home</h1><div data-router-view></div></div>',
+            children: [
+              {
+                path: '/test',
+                template: '<h2>Children1</h2>'
+              }
+            ]
+          },
+          {
+            path: '/about',
+            name: 'ABOUT',
+            template: '<h1>About</h1>',
+          },
+          {
+            path: '/contact',
+            name: 'CONTACT',
+            template: '<h1>Contact</h1>',
+          }
+        ]
+
+        const router = new BrowserRouter(routerConfig)
+        // const router = new HashRouter(routerConfig)
+
+        function init () {
+          const btnToHome = document.getElementById('toHome')
+          const btnToAbout = document.getElementById('toAbout')
+          const btnToConcact = document.getElementById('toContact')
+
+          btnToHome.onclick = function () {
+            router.push('/test')
+          }
+
+          btnToAbout.onclick = function () {
+            router.push('/about')
+          }
+
+          btnToConcact.onclick = function () {
+            router.push('/contact')
+          }
+        }
+
+        init()
+      </script>
+    </body>
+</html>
